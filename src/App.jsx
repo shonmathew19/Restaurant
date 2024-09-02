@@ -13,7 +13,7 @@ function App() {
       <Header />
       <Routes>
         <Route path='/' element={<Home />}></Route>
-        <Route path='/restaurant_view' element={<RestView />}></Route>
+        <Route path='/restaurant_view/:id' element={<RestView />}></Route>
       </Routes>
       <Footer />
     </>
