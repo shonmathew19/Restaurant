@@ -19,25 +19,32 @@ const restaurantSlice = createSlice({
         allRestaurant: [], // resolve stage
         error: "" //rejected state- return error
     },
-    extraReducers:(builder)=>{
-        builder.addCase(fetchRestaurant.pending,(state)=>{
-            state.loading=true;
+    extraReducers: (builder) => {
+        builder.addCase(fetchRestaurant.pending, (state) => {
+            state.loading = true;
 
         })
-        builder.addCase(fetchRestaurant.fulfilled,(state,action)=>{
-            state.loading=false;
+        builder.addCase(fetchRestaurant.fulfilled, (state, action) => {
+            state.loading = false;
             state.allRestaurant = action.payload;
+            state.searchRestaurant = action.payload;
             state.error = ""
         })
-        builder.addCase(fetchRestaurant.rejected,(state,action)=>{
+        builder.addCase(fetchRestaurant.rejected, (state, action) => {
             state.loading = false;
-            state.allRestaurant=[],
-            state.error = action.error.message
+            state.allRestaurant = [],
+                state.error = action.error.message
         })
+    },
+    reducers: {
+        searchRestaurant: (state, action) => {
+            state.allRestaurant.restaurants = state.searchRestaurant?.restaurants.filter(item => item.neighborhood.toLowerCase().includes(action.payload))
+        }
     }
 })
 
 export default restaurantSlice.reducer;
+export const { searchRestaurant } = restaurantSlice.actions;
 
 
 //Redux is  a synchronous operation but API call or file r/w, etc... are  asynchronous operation.So to deal with asynchronous operation in redux we are using redux Thunk.Thunk is not a part of slice, separate method in redux toolkit.

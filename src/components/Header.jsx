@@ -1,9 +1,12 @@
 import React from 'react';
 import Container from 'react-bootstrap/Container';
 import Navbar from 'react-bootstrap/Navbar';
+import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
+import { searchRestaurant } from '../redux/restaurantSlice';
 
 function Header() {
+    const dispatch = useDispatch()
     return (
         <Navbar className="bg-dark mt-3">
             <Container className="d-flex justify-content-between align-items-center">
@@ -24,6 +27,7 @@ function Header() {
                     type="text"
                     className='form-control w-50'
                     placeholder='Search by neighborhood'
+                    onChange={(e)=>dispatch(searchRestaurant(e.target.value))}
                     
                 />
             </Container>
